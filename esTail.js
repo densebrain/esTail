@@ -286,6 +286,7 @@ function doSearch() {
       // Loop over the events
       if (error) {
         console.error("ERR:".red + error);
+        searchDone = true
         return;
       }
       console.info("INFO".yellow + "Count = " + response.hits.hits.length);
