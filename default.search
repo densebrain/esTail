@@ -2,56 +2,55 @@
   "index": "{{index}}",
   "scroll": "30s",
   "sort": "_doc",
-  "size" : {{ fetchsize }},
-  "body":{
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "range": {
-            "@timestamp": {
-              "gt": "{{from}}",
-              "to": "now"
+  "size": {{ fetchsize }},
+  "body": {
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "range": {
+              "timestamp": {
+                "gt": "{{from}}",
+                "to": "now"
+              }
             }
           }
-        }
-      ],
-"must_not": [
-{
-"constant_score": {
-"filter": {
-"bool": {
-"must_not": {
-"exists": {
-"field": "message"
-}
-}
-}
-}
-}
-}
-,
-{
-"constant_score": {
-"filter": {
-"bool": {
-"must_not": {
-"exists": {
-"field": "@timestamp"
-}
-}
-}
-}
-}
-}
-],
-      "should": []
-    }
-  },
-          "sort": {
-    "@timestamp": {
-      "order": "asc"
+        ],
+        "must_not": [
+          {
+            "constant_score": {
+              "filter": {
+                "bool": {
+                  "must_not": {
+                    "exists": {
+                      "field": "message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "constant_score": {
+              "filter": {
+                "bool": {
+                  "must_not": {
+                    "exists": {
+                      "field": "timestamp"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "should": []
+      }
+    },
+    "sort": {
+      "timestamp": {
+        "order": "asc"
+      }
     }
   }
-}
 }
